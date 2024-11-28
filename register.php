@@ -1,109 +1,65 @@
-<?php
-// Mulai sesi
-session_start();
-
-// Tangani pengiriman formulir
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $username = trim($_POST['username']);
-    $password = trim($_POST['password']);
-
-    // Validasi sederhana (sebaiknya gunakan database dan validasi yang tepat di produksi)
-    if (!empty($username) && !empty($password)) {
-        // Pendaftaran berhasil (untuk tujuan demo, Anda mungkin menyimpan data ini dalam database)
-        $_SESSION['message'] = "Pendaftaran berhasil. Silakan masuk.";
-        header("Location: login.php"); // Alihkan ke halaman login setelah pendaftaran
-        exit;
-    } else {
-        $error = "Harap isi kedua kolom.";
-    }
-}
-?>
-
 <!DOCTYPE html>
-<html lang="id">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pendaftaran</title>
+    <title>Register</title>
+    <!-- Bootstrap CSS CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
     <style>
-        /* Gaya mirip dengan halaman login */
-        body, html {
-            height: 100%;
-            font-family: 'Poppins', sans-serif;
-            background-color: #1C1C1C;
+        body {
+            background-color: #f8f9fa;
             display: flex;
             justify-content: center;
             align-items: center;
-            color: #fff;
+            min-height: 100vh;
+            margin: 0;
         }
-
-        .register-box {
-            background: rgba(0, 0, 0, 0.7);
-            padding: 40px;
-            border-radius: 15px;
+        .form-container {
+            background-color: #ffffff;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 400px;
+        }
+        .form-container h1 {
+            margin-bottom: 1.5rem;
             text-align: center;
-            width: 400px;
-            max-width: 90%;
+            font-size: 1.8rem;
+            color: #333;
         }
-
-        h2 {
-            font-size: 28px;
-            font-weight: bold;
-            color: #00d4ff;
-            margin-bottom: 20px;
-        }
-
-        .input-box {
-            margin: 15px 0;
-            position: relative;
-        }
-
-        input[type="text"], input[type="password"] {
+        .btn-primary {
             width: 100%;
-            padding: 12px;
-            border: none;
-            border-radius: 8px;
-            background-color: rgba(255, 255, 255, 0.2);
-            color: #FFFFFF;
-            font-size: 16px;
-        }
-
-        .register-button {
-            background-color: #FF5733;
-            border: none;
-            padding: 12px 20px;
-            color: white;
-            border-radius: 8px;
-            cursor: pointer;
-            width: 100%;
-            font-size: 18px;
-        }
-
-        .register-button:hover {
-            background-color: #E74C3C;
-        }
-
-        .error-message {
-            color: #FF5733;
-            font-size: 14px;
         }
     </style>
 </head>
 <body>
-    <div class="register-box">
-        <h2>Daftar</h2>
-        <?php if (isset($error)): ?>
-            <p class="error-message"><?php echo $error; ?></p>
-        <?php endif; ?>
-        <form action="register.php" method="POST">
-            <div class="input-box">
-                <input type="text" name="username" placeholder="Username" required>
+    <div class="form-container">
+        <h1>Register</h1>
+        <form action="./backend/register.php" method="post">
+            <div class="mb-3">
+                <label for="name" class="form-label">Nama</label>
+                <input type="text" class="form-control" id="name" name="name" placeholder="Masukkan nama anda">
             </div>
-            <div class="input-box">
-                <input type="password" name="password" placeholder="Password" required>
+            <div class="mb-3">
+                <label for="email" class="form-label">Email</label>
+                <input type="email" class="form-control" id="email" name="email" placeholder="Masukkan email anda">
             </div>
-            <button type="submit" class="register-button">Daftar</button>
+            <div class="mb-3">
+                <label for="password" class="form-label">Password</label>
+                <input type="password" class="form-control" id="password" name="password" placeholder="Masukkan password anda">
+            </div>
+            <div class="mb-3">
+                <label for="confirm" class="form-label">Konfirmasi Password</label>
+                <input type="password" class="form-control" id="confirm" name="confirm" placeholder="Masukkan konfirmasi password anda">
+            </div>
+            <button type="submit" class="btn btn-primary" name="submit">Register</button>
         </form>
     </div>
+
+    <!-- Bootstrap JS and Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
